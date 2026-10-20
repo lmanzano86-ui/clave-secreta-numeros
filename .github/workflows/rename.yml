@@ -1,0 +1,26 @@
+name: Rename file to index.html
+
+on:
+  push:
+    paths:
+      - '.github/workflows/rename.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename HTML file to index.html
+        run: |
+          git config user.name "lmanzano86-ui"
+          git config user.email "lmanzano86-ui@users.noreply.github.com"
+          if [ -f "la-clave-secreta-de-los-n-meros.html" ]; then
+            git mv "la-clave-secreta-de-los-n-meros.html" index.html
+            git commit -m "Rename la-clave-secreta-de-los-n-meros.html to index.html"
+            git push
+          else
+            echo "Nothing to rename."
+          fi
